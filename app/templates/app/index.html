@@ -1,0 +1,83 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+    <h1>Магазин Канцелярских товаров "Радуга"</h1>
+    <p class="lead">Магазин  КанцТоваров "Радуга" — широкий выбор канцелярских товаров и товаров для творчества, комплексное обеспечение организаций товарами для офиса и быта: канцтовары, офисная бумага и т.д.</p>
+    <p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">Узнать больше &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Игрушки</h2>
+        <p>
+            Игрушки любят не только дети, но и взрослые.
+        </p>
+        <p><a class="btn btn-default" href="http://www.djangobook.com/en/2.0/index.html">Узнать больше &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Товары для учёбы</h2>
+        <p>Товары для учебы – это необходимые элементы, которые используются в процессе обучения и детского творчества.</p>
+        <p><a class="btn btn-default" href="https://pypi.org/">Узнать больше &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Товары для офиса</h2>
+        <p>Офис любой компании невозможно представить без канцелярских принадлежностей.</p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Узнать больше &raquo;</a></p>
+    </div>
+</div>
+{% load staticfiles %}
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+        <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+        <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                        <img src="{% static 'app/content/banner1.jpg'%} " alt="Первый слайд" class="img-responsive" />
+                        <div class="carousel-caption" role="option">
+                                <p>
+                                        О нас
+                                        <a class="btn btn-default" href="{% url 'about' %}">
+                                                Читать далее
+                                            </a>
+                                    </p>
+                            </div>
+                    </div>
+                <div class="item">
+                        <img src="{% static 'app/content/banner2.jpg'%}" alt="Второй слайд"  class="img-responsive" />
+                        <div class="carousel-caption" role="option">
+                                <p>
+                                        Блог
+                                        <a class="btn btn-default" href="{% url 'blog' %}">
+                                                Читать далее
+                                            </a>
+                                    </p>
+                            </div>
+                    </div>
+                <div class="item">
+                        <img src=" {% static 'app/content/banner3.jpg'%} " alt="Третий слайд"  class="img-responsive" />
+                        <div class="carousel-caption" role="option">
+                                <p>
+                                        Обратная связь
+                                        <a class="btn btn-default" href="{% url 'anketa' %}">
+                                                Читать далее
+                                            </a>
+                                    </p>
+                            </div>
+                    </div>
+            </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+    </div>
+{% endblock %}
+
