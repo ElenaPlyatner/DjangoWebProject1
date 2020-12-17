@@ -1,0 +1,20 @@
+﻿{% extends "app/layout.html" %}
+{% block content %}
+<h2>Корзина:</h2> <br />
+<div class="row">
+{% for post in posts %}
+    <div class="col-md-4">
+        {% for post_1 in posts_1 %}
+            {% if post.post_id == post_1.id %}
+                <h2>Название: {{post_1.title}} </h2>
+                <h3>Цена: {{post_1.price}} </h3>
+            {% endif %}
+        {% endfor %}
+        <h3>Дата добавления: {{post.date}} </h3>
+        <h3>Статус: {% if post.ready %} оплачен {% else %} не оплачен {% endif %}</h3>
+        <a href="{% url 'buyproduct' bid=post.id %}" class="btn btn-default">Оплатить</a>
+        <a href="{% url 'delproduct' did=post.id %}" class="btn btn-default">Удалить</a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

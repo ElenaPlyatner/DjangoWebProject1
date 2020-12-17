@@ -14,6 +14,8 @@ from .models import Blog
 from .models import Comment # использование модели комментариев
 from .forms import CommentForm # использование формы ввода комментария
 from .forms import BlogForm
+from .models import Products
+from .models import Orders
 
 
 def home(request):
@@ -202,3 +204,55 @@ def newpost(request):
             'year': datetime.now().year,
         }
     )
+
+def catalog(request):
+    """Renders the blog page."""
+    assert isinstance(request, HttpRequest)
+    posts = Products.objects.all() # запрос на выбор всех продуктов из модели
+    return render(
+        request,
+        'app/catalog.html',
+        {
+        'posts': posts, # передача списка статей в шаблон веб-страницы
+        'year':datetime.now().year,
+        }
+)
+
+def trash(request):
+    """Renders the blog page."""
+    assert isinstance(request, HttpRequest)
+    posts = Orders.objects.all() # запрос на выбор всех заказов из модели
+    posts_1 = Products.objects.all()
+    return render(
+        request,
+        'app/trash.html',
+        {
+        'posts': posts, # передача списка заказов веб-страницы
+        'posts_1': posts_1, # передача списка заказов веб-страницы
+        'year':datetime.now().year,
+        }
+)
+
+def addtotrash(request, aid):
+    assert isinstance(request, HttpRequest)
+
+    Orders(date = datetime.now(), author = request.user, post_id = aid, ready = False).save()
+
+    return redirect('trash')
+
+def delproduct(request, did):
+    assert isinstance(request, HttpRequest)
+
+    posts = Orders.objects.get(id=did)
+    posts.delete()
+
+    return redirect('trash')
+
+def buyproduct(request, bid):
+    assert isinstance(request, HttpRequest)
+
+    posts = Orders.objects.get(id=bid)
+    posts.ready = True
+    posts.save()
+
+    return redirect('trash')

@@ -47,3 +47,39 @@ class Comment(models.Model):
         ordering = ["-date"] # порядок сортировки данных в модели ("-" означает по убыванию)
 
 admin.site.register(Comment)
+
+#модель данных блога
+class Products(models.Model):
+    title = models.CharField(max_length = 100, verbose_name = "Название")
+    description = models.TextField(verbose_name = "Описание")
+    price = models.CharField(max_length = 100, verbose_name = "Цена")
+    image = models.FileField(default = 'temp.jpg', verbose_name = "Путь к картинке")
+
+
+    def __str__(self): # метод возвращает название, используемое для представления отдельных записей в административном разделе
+        return self.title
+
+    class Meta:
+        db_table = "Products" # имя таблицы для модели
+        ordering = ["title"] # порядок сортировки данных в модели ("-" означает по убыванию)
+        verbose_name = "Товар" # имя, под которым модель будет отображаться в административном разделе (для одной статьи блога)
+        verbose_name_plural = "Товар" # тоже для всех статей блога
+
+admin.site.register(Products)
+
+class Orders(models.Model):
+    date = models.DateTimeField(default = datetime.now(), db_index = True, verbose_name = "Дата")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Клиент")
+    post = models.ForeignKey(Products, on_delete = models.CASCADE, verbose_name = "Товар")
+    ready = models.BooleanField(default = False, verbose_name = "Статус")
+    
+    def __str__(self): # метод возвращает название, используемое для представления отдельных записей в административном разделе
+        return 'Заказ от %s  %s' % (self.author, self.post)
+    
+    class Meta:
+        db_table = "Orders" # имя таблицы для модели
+        verbose_name = "Заказ" # имя, под которым модель будет отображаться в административном разделе (для одной статьи блога)
+        verbose_name_plural = "Заказ" # тоже для всех статей блога
+        ordering = ["-id"] # порядок сортировки данных в модели ("-" означает по убыванию)
+
+admin.site.register(Orders)

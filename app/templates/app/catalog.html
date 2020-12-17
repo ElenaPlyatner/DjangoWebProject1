@@ -1,0 +1,15 @@
+﻿{% extends "app/layout.html" %}
+{% block content %}
+<h2>Каталог товаров:</h2> <br />
+<div class="row">
+{% for post in posts %}
+    <div class="col-md-4">
+        <img src="{{ post.image.url }}" alt="Картинка" width="350" height="300"/>
+        <h2> {{post.title}} </h2>
+        <h3> {{post.description}} </h3>
+        <h3> {{post.price}} </h3>
+        <a href="{% url 'addtotrash' aid=post.id %}" class="btn btn-default">Купить</a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

@@ -49,7 +49,12 @@ urlpatterns = [
     url(r'^registration$', app.views.registration, name='registration'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^blog$', app.views.blog, name='blog'),
+    url(r'^catalog$', app.views.catalog, name='catalog'),
+    url(r'^trash$', app.views.trash, name='trash'),
     url(r'^(?P<parametr>\d+)/$', app.views.blogpost, name='blogpost'),
+    url(r'^addtotrash/(?P<aid>\d+)/$', app.views.addtotrash, name='addtotrash'),
+    url(r'^delproduct/(?P<did>\d+)/$', app.views.delproduct, name='delproduct'),
+    url(r'^buyproduct/(?P<bid>\d+)/$', app.views.buyproduct, name='buyproduct'),
     url(r'^videopost$', app.views.videopost, name='videopost'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
